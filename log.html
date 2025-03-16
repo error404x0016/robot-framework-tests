@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 7.0 (Python 3.11.10 on linux)" name="Generator">
+<meta content="Robot Framework 7.2.2 (Python 3.13.1 on linux)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKcAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAqAAAAAAAAAAAAAAAAAAAALIAAAD/AAAA4AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA4AAAAP8AAACxAAAAAAAAAKYAAAD/AAAAuwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/AAAA/wAAAKkAAAD6AAAAzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN8AAAD/AAAA+gAAAMMAAAAAAAAAAgAAAGsAAABrAAAAawAAAGsAAABrAAAAawAAAGsAAABrAAAADAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAIsAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAANEAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAAAAAAAAMgAAADIAAAAyAAAAMgAAADIAAAAyAAAAMgAAADIAAAAFAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAADwAAAB8AAAAAAAAAGAAAABcAAAAAAAAAH8AAABKAAAAAAAAAAAAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAADCAAAA/wAAACkAAADqAAAA4QAAAAAAAAD7AAAA/wAAALAAAAAGAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAIwAAAP4AAAD/AAAA/wAAAGAAAAAAAAAAAAAAAMkAAAD/AAAAigAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAAAAAAAIAAAAcAAAABkAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAA2gAAAP8AAAD7AAAAywAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN4AAAD/AAAAqwAAAP8AAACvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALIAAAD/AAAAsgAAAAAAAAC5AAAA/wAAAMoAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMkAAAD/AAAAvAAAAAAAAAAAAAAAAAAAAKwAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAArQAAAAAAAAAAwAMAAIABAAAf+AAAP/wAAD/8AAAgBAAAP/wAAD/8AAA//AAAJIwAADHEAAA//AAAP/wAAB/4AACAAQAAwAMAAA==">
 <style media="all">
 :root {
@@ -1252,58 +1252,48 @@ window.stats = (function () {
             });
     }
     function calculatePercents(total, passed, failed, skipped) {
-        if (total == 0) {
+        if (total == 0)
             return [0.0, 0.0, 0.0];
-        }
         var pass = 100.0 * passed / total;
         var skip = 100.0 * skipped / total;
         var fail = 100.0 * failed / total;
         if (pass > 0 && pass < 0.1)
-            pass = 0.1
+            pass = 0.1;
         if (fail > 0 && fail < 0.1)
-            fail = 0.1
+            fail = 0.1;
         if (skip > 0 && skip < 0.1)
-            skip = 0.1
+            skip = 0.1;
         if (pass > 99.95 && pass < 100)
-            pass = 99.9
+            pass = 99.9;
         if (fail > 99.95 && fail < 100)
-            fail = 99.9
+            fail = 99.9;
         if (skip > 99.95 && skip < 100)
-            skip = 99.9
-        return [Math.round(pass*10)/10, Math.round(skip*10)/10, Math.round(fail*10)/10];
+            skip = 99.9;
+        return [round1(pass), round1(skip), round1(fail)];
     }
     function calculateWidths(num1, num2, num3) {
         if (num1 + num2 + num3 === 0)
             return [0.0, 0.0, 0.0];
         // Make small percentages better visible
         if (num1 > 0 && num1 < 1)
-            num1 = 1
+            num1 = 1.0;
         if (num2 > 0 && num2 < 1)
-            num2 = 1
+            num2 = 1.0;
         if (num3 > 0 && num3 < 1)
-            num3 = 1
+            num3 = 1.0;
         // Handle situation where some are rounded up
         while (num1 + num2 + num3 > 100) {
-            if (num1 > num2 && num1 > num3)
-                num1 -= 0.1;
-            else if (num2 > num1 && num2 > num3)
-                num2 -= 0.1;
-            else if (num3 > num1 && num3 > num2)
-                num3 -= 0.1;
-            else if (num1 > num3 && num1 == num2) {
-                num1 -= 0.1;
-                num2 -= 0.1;
-            }
-            else if (num1 > num2 && num1 == num3) {
-                num1 -= 0.1;
-                num3 -= 0.1;
-            }
-            else if (num2 > num1 && num2 == num3) {
-                num2 -= 0.1;
-                num3 -= 0.1;
-            }
+            if (num1 >= num2 && num1 >= num3)
+                num1 = round1(num1 - 0.1);
+            else if (num2 >= num1 && num2 >= num3)
+                num2 = round1(num2 - 0.1);
+            else
+                num3 = round1(num3 - 0.1);
         }
-        return [Math.ceil(num1*10)/10, Math.ceil(num2*10)/10, Math.ceil(num3*10)/10];
+        return [num1, num2, num3];
+    }
+    function round1(num) {
+        return Math.round(num*10) / 10;
     }
     return {
         Statistics: Statistics
@@ -1522,7 +1512,7 @@ window.testdata = function () {
     var STATUSES = ['FAIL', 'PASS', 'SKIP', 'NOT RUN'];
     var KEYWORD_TYPES = ['KEYWORD', 'SETUP', 'TEARDOWN', 'FOR', 'ITERATION', 'IF',
                          'ELSE IF', 'ELSE', 'RETURN', 'VAR', 'TRY', 'EXCEPT', 'FINALLY',
-                         'WHILE', 'CONTINUE', 'BREAK', 'ERROR'];
+                         'WHILE', 'GROUP', 'CONTINUE', 'BREAK', 'ERROR'];
     function addElement(elem) {
         if (!elem.id)
             elem.id = uniqueId();
@@ -2081,25 +2071,25 @@ storage = function () {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[1,0,88],[],[[4,0,0,[],[1,87,1],[[0,5,6,0,7,8,0,0,[1,87,0],[[87,2,8]]]]]],[],[1,1,0,0]];
+window.output["suite"] = [1,2,3,0,[],[0,0,21363],[],[[4,0,0,[],[0,1097,20264,5],[[0,6,0,0,0,0,0,0,[0,1098,20262],[[0,7,8,0,9,10,0,0,[0,1099,20261],[[1099,2,11],[21355,2,12],[21355,5,5]]],[0,13,8,0,14,0,0,0,[3,21360,0],[]]]],[0,15,0,0,0,0,0,0,[3,21360,0],[]],[0,16,0,0,0,0,0,0,[3,21361,0],[]],[0,17,0,0,0,0,0,0,[3,21361,0],[]],[0,18,0,0,0,0,0,0,[3,21361,0],[]],[0,19,0,0,0,0,0,0,[3,21361,0],[]]]]],[],[1,0,1,0]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*Monitor","*/home/runner/workspace/monitor.robot","*monitor.robot","*Open Logs","*Log","*BuiltIn","*<p>Logs the given message with the given level.\x3c/p>","*Test Hey","eNq9lsuynDYQhvfnKdidZAGjCyA4u6TKKWeREy+8yVIXLkIXQGIQ8PTR2HFlxk5coepUltMj/k/d/XfDO+dGl0ibtFI3yfOlH01zcVdrG3cJo1N+ory5mNHKZXSZG9m4PCejTbS0TYJekl/NNLpF2i5GmKNuT55/vkodI89JS6OmeEl+G8VVN6/j8st4teLdjfiSvI6J+RRPLDWN+Puxp48uIhnlKvnBjH5JXMMbuyScap1o6pcfX56S+Lhtnj788fH9768ffvr4/hb6l7tn0770o43X8xcm7e2gldvFx3yai+ZkXpEWh/OQzrhn+2FYt1rQo4DKSadeLg2/xsNGHvG4ZJfPcpfbH2kEKNo1/lFUtF2JtRZs5QMCRO6uPsAWEBQV3QCy6WcJnEGYTnJKUZ6BO+lb/Hvye12t5Uy2qeiFaNmK0RqO+shZ1++bcjj91KXWxbLeqpAuUuxpnkF8ioI23W6IUGDJlNPcd6Ij6zrE4gzF6mt3n8RXQHIKRHrr6tpuTiAaSh2TYLMwiqu5BEOp6y+g9CaU1SeU81b3TkIb+sqCWPucbWgf7C676QCAdfcpcC25SqsMZuQEoe7noZO4D+tcTnWBBSEBCTkhJiCAm3kgjHqMJaIpyPKsPNOJlZMCGWg2ZScg5o75mVarnRWoi6J9gEx06f3U8AiBKIMnKM5x1s1411T5A/uwQ2lMUFU1Heboh/WeEqdByxRl4BRhYKTevWVaxKEg897OHK7rDDABnXC2f3CU5P1fPYFZlaETmE610TqiIMJRC1rVHRUkuDp4FTgOEH+DiYNBTiWi9FDWuOoxchQbHRRduUNVIRCuSI+re4KhTokx2FQuMRw9DE4Nh6LauGNDrdatIhBrAwzcGZwKNweo9weUuDp9a/ypcnEpCrUZN4hOKi0D692Ow1wOAEJS1MWDu/bOxFXsY+shOUVRNQIeA1qI+bCiHXLJEZ6I82DiNSLqwV37FN8nabMtjfVytP62vOCpsvG9t3MI+VoR40uExQERpSLIfAhs18M9bpB2oOi2XbL8BMJzqvZC4mHgrVEI+3LqWkGOWh49oEP7tQmuk6dtc6tcVpzA0LWEvCRznc+kLY/Ossm1Mw64q7SbK/vtWIY4MedMxvUGDJeOzKE6FC4P5vLBUVLVHVa2LR83MHyQjoFDTm+nFyNvKnb7mYrd6pGK//aN8P/U7R+l3/JygenViGIn8tjAAYGAgXSUHDyn07AZdm8c3yzXaRlH7VNSRIN+fxn+CYDieQE="]);
+window.output["strings"] = window.output["strings"].concat(["*","*Monitor","*/home/runner/workspace/monitor.robot","*monitor.robot","*Monitor Netflix Devices","*WebDriverException: Message: Service /home/runner/.cache/selenium/chromedriver/linux64/134.0.6998.88/chromedriver unexpectedly exited. Status code was: 127\n","*Open Netflix","*Open Browser","*SeleniumLibrary","*<p>Opens a new browser instance to the optional <code>url\x3c/code>.\x3c/p>","*${NETFLIX_URL}    browser=chrome","*Opening browser 'chrome' to base url '<a href=\"https://www.netflix.com/YourAccount\">https://www.netflix.com/YourAccount\x3c/a>'.","*Cannot capture screenshot because no browser is open.","*Maximize Browser Window","*<p>Maximizes current browser window.\x3c/p>","*Login To Netflix","*Get Active Devices","*Validate Streaming Limits","*Logout Unwanted Devices","*Close Browser"]);
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:00","fail":0,"label":"All Tests","pass":1,"skip":0}],[],[{"elapsed":"00:00:00","fail":0,"id":"s1","label":"Monitor","name":"Monitor","pass":1,"skip":0}]];
+window.output["stats"] = [[{"elapsed":"00:00:20","fail":1,"label":"All Tests","pass":0,"skip":0}],[],[{"elapsed":"00:00:21","fail":1,"id":"s1","label":"Monitor","name":"Monitor","pass":0,"skip":0}]];
 </script>
 <script type="text/javascript">
-window.output["errors"] = [[86,4,9]];
+window.output["errors"] = [];
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1742050102004;
+window.output["baseMillis"] = 1742148085378;
 </script>
 <script type="text/javascript">
-window.output["generated"] = 92;
+window.output["generated"] = 21366;
 </script>
 <script type="text/javascript">
 window.output["expand_keywords"] = null;
@@ -2214,7 +2204,7 @@ function addExecutionLog(main) {
 
 <script type="text/x-jquery-tmpl" id="tagStatisticsRowTemplate">
   <tr class="row-${$item.index}">
-    <td class="stats-col-name" title="{{html doc}}">
+    <td class="stats-col-name" title="${doc}">
       <div class="stat-name">
         <span>{{html label}}</span>
         {{if info}}(${info}){{/if}}

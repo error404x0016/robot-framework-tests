@@ -1,0 +1,17 @@
+
+To Activate virtual env in Shell
+
+source venv/bin/activate
+
+If you see permission denied: 
+
+chmod +x venv/bin/activate
+source venv/bin/activate
+
+Then verify you're inside the virtual environment by checking if (venv) appears in the terminal prompt.
+
+
+When executing a test, specify the Python path explicitly (this will prevent any 'module not found' errors)
+
+venv/bin/python -m robot monitor.robot
+

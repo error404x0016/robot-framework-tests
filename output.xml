@@ -1,57 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.11.10 on linux)" generated="2025-03-15T14:48:22.002903" rpa="false" schemaversion="5">
+<robot generator="Robot 7.2.2 (Python 3.13.1 on linux)" generated="2025-03-16T18:01:25.376503" rpa="false" schemaversion="5">
 <suite id="s1" name="Monitor" source="/home/runner/workspace/monitor.robot">
-<test id="s1-t1" name="Open Logs" line="5">
-<kw name="Log" owner="BuiltIn">
-<msg time="2025-03-15T14:48:22.091393" level="INFO">Test Hey</msg>
-<arg>Test Hey</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-03-15T14:48:22.091224" elapsed="0.000231"/>
+<test id="s1-t1" name="Monitor Netflix Devices" line="16">
+<kw name="Open Netflix">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-03-16T18:01:26.477251" level="INFO">Opening browser 'chrome' to base url 'https://www.netflix.com/YourAccount'.</msg>
+<msg time="2025-03-16T18:01:46.732589" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<msg time="2025-03-16T18:01:46.732883" level="FAIL">WebDriverException: Message: Service /home/runner/.cache/selenium/chromedriver/linux64/134.0.6998.88/chromedriver unexpectedly exited. Status code was: 127
+</msg>
+<arg>${NETFLIX_URL}</arg>
+<arg>browser=chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="FAIL" start="2025-03-16T18:01:26.476861" elapsed="20.260616">WebDriverException: Message: Service /home/runner/.cache/selenium/chromedriver/linux64/134.0.6998.88/chromedriver unexpectedly exited. Status code was: 127
+</status>
 </kw>
-<status status="PASS" start="2025-03-15T14:48:22.090538" elapsed="0.001131"/>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="NOT RUN" start="2025-03-16T18:01:46.737745" elapsed="0.000041"/>
+</kw>
+<status status="FAIL" start="2025-03-16T18:01:26.475827" elapsed="20.262120">WebDriverException: Message: Service /home/runner/.cache/selenium/chromedriver/linux64/134.0.6998.88/chromedriver unexpectedly exited. Status code was: 127
+</status>
+</kw>
+<kw name="Login To Netflix">
+<status status="NOT RUN" start="2025-03-16T18:01:46.738324" elapsed="0.000049"/>
+</kw>
+<kw name="Get Active Devices">
+<status status="NOT RUN" start="2025-03-16T18:01:46.738644" elapsed="0.000044"/>
+</kw>
+<kw name="Validate Streaming Limits">
+<status status="NOT RUN" start="2025-03-16T18:01:46.738887" elapsed="0.000034"/>
+</kw>
+<kw name="Logout Unwanted Devices">
+<status status="NOT RUN" start="2025-03-16T18:01:46.739142" elapsed="0.000031"/>
+</kw>
+<kw name="Close Browser">
+<status status="NOT RUN" start="2025-03-16T18:01:46.739339" elapsed="0.000036"/>
+</kw>
+<status status="FAIL" start="2025-03-16T18:01:26.475197" elapsed="20.264362">WebDriverException: Message: Service /home/runner/.cache/selenium/chromedriver/linux64/134.0.6998.88/chromedriver unexpectedly exited. Status code was: 127
+</status>
 </test>
-<status status="PASS" start="2025-03-15T14:48:22.004404" elapsed="0.087689"/>
+<status status="FAIL" start="2025-03-16T18:01:25.377567" elapsed="21.362692"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Monitor">Monitor</stat>
+<stat name="Monitor" id="s1" pass="0" fail="1" skip="0">Monitor</stat>
 </suite>
 </statistics>
 <errors>
-<msg time="2025-03-15T14:48:22.089694" level="ERROR">Error in file '/home/runner/workspace/monitor.robot' on line 2: Importing library 'Builtin' failed: ModuleNotFoundError: No module named 'Builtin'
-Traceback (most recent call last):
-  None
-PYTHONPATH:
-  /home/runner/workspace/.pythonlibs/bin
-  /nix/store/lc7qv2ldzrs1aq3hbyzmbgvn0h2w26pl-sitecustomize/lib/python/site-packages
-  /nix/store/dfg63lldbvcj207iyr9z0xw21d8ax02n-python3.11-pip-24.0/lib/python3.11/site-packages
-  /nix/store/y98v6q7xp5hddfbv32vwz9z4bghyxkr3-robotframework-tidy-4.13.0/lib/python3.11/site-packages
-  /nix/store/2xlfx27a0n7p4a4sgdg7vvjbgvj5vs9r-python3.11-robotframework-7.0/lib/python3.11/site-packages
-  /nix/store/7hnr99nxrd2aw6lghybqdmkckq60j6l9-python3-3.11.9/lib/python3.11/site-packages
-  /nix/store/4flhri1nwh8n0d8a4bx2yjnyigpz00bg-python3.11-click-8.1.7/lib/python3.11/site-packages
-  /nix/store/9hqjgi3hwvq6p953d77w2dip2bd101xm-python3.11-colorama-0.4.6/lib/python3.11/site-packages
-  /nix/store/2vc752m1mxknp0dqgbsqa8vnqk0955fm-python3.11-pathspec-0.12.1/lib/python3.11/site-packages
-  /nix/store/rrcbgq3ylaksz3swy1immwk88pzmzhjv-python3.11-tomli-2.0.1/lib/python3.11/site-packages
-  /nix/store/jb79ysnbld2077qyfqc1vvq0370gdrnh-python3.11-rich-click-1.8.2/lib/python3.11/site-packages
-  /nix/store/gkfkq6d57dran0fkgz81738zc8wc3w13-python3.11-rich-13.7.1/lib/python3.11/site-packages
-  /nix/store/klj6938h32ra3mlwkavcr285d2387h38-python3.11-markdown-it-py-3.0.0/lib/python3.11/site-packages
-  /nix/store/kalmrzx2fllfk713lm0m1yb1p5rqw1ly-python3.11-mdurl-0.1.2/lib/python3.11/site-packages
-  /nix/store/cid5kxmrjdgikliwbhry3wq6j0117595-python3.11-pygments-2.17.2/lib/python3.11/site-packages
-  /nix/store/k920s30a5dqzndfj4ic23p7rs0pc927k-python3.11-typing-extensions-4.11.0/lib/python3.11/site-packages
-  /nix/store/cyhnqww4v87ms623dz12aadwi4jwbylj-python3.11-jinja2-3.1.4/lib/python3.11/site-packages
-  /nix/store/scaky5i3jjcfmk23s6pgfd7z9izh0ajf-python3.11-markupsafe-2.1.5/lib/python3.11/site-packages
-  /nix/store/av61c67q94q7f6zgnbprfq3w3g8lrq8n-python3.11-tomli-w-1.0.0/lib/python3.11/site-packages
-  /nix/store/clx0mcir7qw8zk36zbr4jra789g3knf6-python3-3.11.10/lib/python311.zip
-  /nix/store/clx0mcir7qw8zk36zbr4jra789g3knf6-python3-3.11.10/lib/python3.11
-  /nix/store/clx0mcir7qw8zk36zbr4jra789g3knf6-python3-3.11.10/lib/python3.11/lib-dynload
-  /home/runner/workspace/.pythonlibs/lib/python3.11/site-packages
-  /nix/store/clx0mcir7qw8zk36zbr4jra789g3knf6-python3-3.11.10/lib/python3.11/site-packages
-  /home/runner/workspace/.pythonlibs/lib/python3.11/site-packages
-  /nix/store/wblvmd5y7izx0z10d1w7ga7zc4apjxmb-python3.11-setuptools-75.1.1/lib/python3.11/site-packages</msg>
 </errors>
 </robot>
