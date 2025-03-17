@@ -7,8 +7,8 @@ Library    RequestsLibrary
 
 *** Variables ***
 ${NETFLIX_URL}       https://www.netflix.com/YourAccount
-${EMAIL}             dimaanofamily000@gmail.com
-${PASSWORD}          X103Justice*
+${EMAIL}             email
+${PASSWORD}          pass
 ${ALLOWED_DEVICES}   Google - Set Top Box    Xiaomi - Streaming Stick    Skyworth - Set Top Box    iPhone Chrome - Mobile Browser
 ${SLACK_WEBHOOK}    https://hooks.slack.com/services/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
 
